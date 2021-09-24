@@ -2,6 +2,9 @@
 #![feature(rustc_private)]
 extern crate rustc_lexer;
 
+#[cfg(test)]
+mod toy_calculator;
+
 /*
 todo: where is prefill_caches storage? is prefill_caches working?
 */
