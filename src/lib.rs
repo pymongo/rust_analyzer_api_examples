@@ -5,6 +5,15 @@ extern crate rustc_lexer;
 #[cfg(test)]
 mod toy_calculator;
 
+#[cfg(test)]
+/// easy to debug which env not set
+fn env(key: &str) -> String {
+    match std::env::var(key) {
+        Ok(val) => val,
+        Err(_) => panic!("env {} not set!", key)
+    }
+}
+
 /*
 todo: where is prefill_caches storage? is prefill_caches working?
 */
@@ -13,11 +22,11 @@ fn test_() -> anyhow::Result<()> {
     let start = std::time::Instant::now();
 
     // load_workspace_at may cost 369s
-    let cargo_workspace = "/home/w/repos/atlas/atlas";
-    let crate_name = "common";
+    let cargo_workspace = env("WORKSPACE");
+    let crate_name = env("CRATE");
     let (analysis_host, _vfs, _proc_macro_server_opt) =
         rust_analyzer::cli::load_cargo::load_workspace_at(
-            std::path::Path::new(cargo_workspace),
+            std::path::Path::new(&cargo_workspace),
             &project_model::CargoConfig::default(),
             &rust_analyzer::cli::load_cargo::LoadCargoConfig {
                 load_out_dirs_from_check: false,
