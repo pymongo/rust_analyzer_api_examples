@@ -1,0 +1,21 @@
+[package]
+name = "rust_analyzer_api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust-analyzer = { path = "../rust-analyzer/crates/rust-analyzer" }
+project_model = { path = "../rust-analyzer/crates/project_model" }
+syntax =  { path = "../rust-analyzer/crates/syntax" } # AST
+
+hir =  { path = "../rust-analyzer/crates/hir" }
+
+# unuse
+ide = { path = "../rust-analyzer/crates/ide"  }
+ide_db = { path = "../rust-analyzer/crates/ide_db" }
+vfs = { path = "../rust-analyzer/crates/vfs" }
+
+anyhow = "1.0"
+
+[package.metadata.rust-analyzer]
+rustc_private = true
