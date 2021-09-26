@@ -15,7 +15,13 @@ ide = { path = "../rust-analyzer/crates/ide"  }
 ide_db = { path = "../rust-analyzer/crates/ide_db" }
 vfs = { path = "../rust-analyzer/crates/vfs" }
 
-anyhow = "1.0"
+tracing = "*"
+tracing-subscriber = "*"
+anyhow = "*"
+
+tokio =  { version = "*", features = ["full"] }
+futures = "*"
+env_logger = "*"
 
 [package.metadata.rust-analyzer]
 rustc_private = true

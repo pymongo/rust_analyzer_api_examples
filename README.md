@@ -1,5 +1,5 @@
 
-Inspire by [Rust Code Analysis 实践 - RustChinaConf2020](https://github.com/rustcc/RustChinaConf2020/blob/master/rustchinaconf2020/RustChinaConf2020-28.%E5%B0%B9%E6%80%9D%E7%BB%B4-%E3%80%8ARust%20Code%20Analysis%20%E5%AE%9E%E8%B7%B5%E3%80%8B.pdf} 
+Inspire by [Rust Code Analysis 实践 - RustChinaConf2020](https://github.com/rustcc/RustChinaConf2020/blob/master/rustchinaconf2020/RustChinaConf2020-28.%E5%B0%B9%E6%80%9D%E7%BB%B4-%E3%80%8ARust%20Code%20Analysis%20%E5%AE%9E%E8%B7%B5%E3%80%8B.pdf)
 
 ## How bo build
 
@@ -10,6 +10,8 @@ Make sure rust-analyzer repo dir on parent directory(you can use symbolic link t
 because Cargo.toml would search `rust-analyzer = { path = "../rust-analyzer/crates/rust-analyzer" }`
 
 ## the problem in RustChinaConf2020 demo
+
+最大问题就是没做完，仅仅是 BFS 打印某个 crate 的所有 pub fn 并没有 FindReference/FindUsage 分析未使用的 pub fn
 
 ### test environment
 
