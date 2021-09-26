@@ -19,10 +19,8 @@ tracing = "*"
 tracing-subscriber = "*"
 anyhow = "*"
 
-tokio =  { version = "*", features = ["full"] }
-futures = "*"
 log = "*" # use in tracing_instrument only
-env_logger = "*" # use in tracing_instrument only
+# env_logger = "*" # use in tracing_instrument only
 
 [package.metadata.rust-analyzer]
 rustc_private = true

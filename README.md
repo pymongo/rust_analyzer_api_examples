@@ -37,7 +37,9 @@ I see some false positive?
 
 the RustChinaConf2020 demo use ra API is quite different to master branch
 
+## ra 源码学习指南
 
+资料: docs/dev (contributors docs) 和 youtube 上的作者录制的 rust-analyzer explain 系列视频
 
 ## Reference
 

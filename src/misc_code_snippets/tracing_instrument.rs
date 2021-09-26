@@ -66,7 +66,7 @@ fn run() {
 }
 
 /// env_logger would not log span in tracing::instrument
-#[test]
+#[cfg(FALSE)]
 fn env_logger_log_instrument() {
     env_logger::builder()
         .filter_level(log::LevelFilter::Info)
