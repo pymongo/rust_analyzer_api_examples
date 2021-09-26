@@ -3,15 +3,14 @@
 extern crate rustc_lexer;
 
 #[cfg(test)]
-mod toy_calculator;
-
-use tracing::Instrument as _;
+mod misc_code_snippets;
 
 /**
 salsa crate: kv store, for source code incremental computation
 */
 #[cfg(test)]
 fn init_logger() {
+    // 用了 EnvFilter 就不影响用 with_max_level 以免日志过滤规则被互相覆盖掉
     let filter = tracing_subscriber::filter::EnvFilter::default()
         .add_directive(tracing::Level::TRACE.into())
         // salsa crate: kv store, for source code incremental computation
@@ -23,50 +22,18 @@ fn init_logger() {
         .add_directive("hir_expand::db=info".parse().unwrap())
         // ignore `Dependency { crate_id`
         .add_directive("ide_db::apply_change=warn".parse().unwrap())
-        .add_directive("hir_def=info".parse().unwrap())
-    ;
-    tracing_subscriber::fmt()
-        // .with_max_level(tracing::Level::TRACE)
-        .with_env_filter(filter)
-        .init();
+        .add_directive("hir_def=info".parse().unwrap());
+    tracing_subscriber::fmt().with_env_filter(filter).init();
 }
 
 #[cfg(test)]
+#[cfg(not)]
 /// easy to debug which env not set
 fn env(key: &str) -> String {
     match std::env::var(key) {
         Ok(val) => val,
         Err(_) => panic!("env {} not set!", key),
     }
-}
-
-#[derive(Debug)]
-struct A {
-    a: i32,
-    b: String
-}
-
-use tracing::instrument;
-#[tracing::instrument]
-fn parent_task(subtasks: usize, b: &str, a: A) -> i32 {
-    tracing::info!("as");
-    // tracing::info!("spawning subtasks...");
-    2
-}
-
-#[test]
-fn a() {
-    init_logger();
-    parent_task(2, "b", A {
-        a: 1,
-        b: String::from("asdf")
-    });
-}
-
-#[test]
-fn feature() {
-    init_logger();
-    env("CRATE");
 }
 
 /*
@@ -80,7 +47,7 @@ fn test_() -> anyhow::Result<()> {
     // load_workspace_at may cost 369s
     let cargo_workspace = "/home/w/temp/unused_pub_test_case/Cargo.toml";
     // let crate_name = env("CRATE");
-    let crate_name = "pub_util";
+    // let crate_name = "pub_util";
     let (analysis_host, _vfs, _proc_macro_server_opt) =
         rust_analyzer::cli::load_cargo::load_workspace_at(
             std::path::Path::new(&cargo_workspace),
