@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 rust-analyzer = { path = "../rust-analyzer/crates/rust-analyzer" }
 project_model = { path = "../rust-analyzer/crates/project_model" }
+paths = { path = "../rust-analyzer/crates/paths" }
 syntax =  { path = "../rust-analyzer/crates/syntax" } # AST
 
 hir =  { path = "../rust-analyzer/crates/hir" }

@@ -11,7 +11,7 @@ because Cargo.toml would search `rust-analyzer = { path = "../rust-analyzer/crat
 
 ## the problem in RustChinaConf2020 demo
 
-最大问题就是没做完，仅仅是 BFS 打印某个 crate 的所有 pub fn 并没有 FindReference/FindUsage 分析未使用的 pub fn
+最大问题就是没做完(仅仅打印并没 FindUsage)，仅仅是 BFS 打印某个 crate 的所有 pub fn 并没有 FindReference/FindUsage 分析未使用的 pub fn
 
 ### test environment
 
@@ -40,6 +40,10 @@ the RustChinaConf2020 demo use ra API is quite different to master branch
 ## ra 源码学习指南
 
 资料: docs/dev (contributors docs) 和 youtube 上的作者录制的 rust-analyzer explain 系列视频
+
+学下别人 PR 怎么给 ra 加新的命令: <https://github.com/rust-analyzer/rust-analyzer/pull/10181/files>
+
+学下 LSP 协议和 pub enum RustAnalyzerCmd (这个好像是 executable 文件的命令不是 vscode LSP 的命令集合)
 
 ## Reference
 
