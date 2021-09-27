@@ -8,8 +8,10 @@ rust-analyzer = { path = "../rust-analyzer/crates/rust-analyzer" }
 project_model = { path = "../rust-analyzer/crates/project_model" }
 paths = { path = "../rust-analyzer/crates/paths" }
 syntax =  { path = "../rust-analyzer/crates/syntax" } # AST
+base_db = { path = "../rust-analyzer/crates/base_db" }
 
 hir =  { path = "../rust-analyzer/crates/hir" }
+hir_expand =  { path = "../rust-analyzer/crates/hir_expand" }
 
 # unuse
 ide = { path = "../rust-analyzer/crates/ide"  }

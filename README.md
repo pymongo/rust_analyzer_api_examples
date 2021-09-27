@@ -13,6 +13,10 @@ because Cargo.toml would search `rust-analyzer = { path = "../rust-analyzer/crat
 
 最大问题就是没做完(仅仅打印并没 FindUsage)，仅仅是 BFS 打印某个 crate 的所有 pub fn 并没有 FindReference/FindUsage 分析未使用的 pub fn
 
+demo 中 bottom-up 指的是光标放到某个源文件的第几行，然后分析这是个什么类型的 token
+
+top-down 就是从 crate root 项目根目录开始遍历，一直遍历到每个文件的每个 token
+
 ### test environment
 
 cargo workspace line of code: 42683
@@ -44,6 +48,16 @@ the RustChinaConf2020 demo use ra API is quite different to master branch
 学下别人 PR 怎么给 ra 加新的命令: <https://github.com/rust-analyzer/rust-analyzer/pull/10181/files>
 
 学下 LSP 协议和 pub enum RustAnalyzerCmd (这个好像是 executable 文件的命令不是 vscode LSP 的命令集合)
+
+LSP 协议通信的数据包格式是 JSON 
+
+通信的信道是 vscode/IDE 跟 ra 可执行文件之间建立双向管道，LSP 客户端往 ra 可执行文件的 STDIN 写入 JSON 字符串即为发请求
+
+> let (initialize_id, initialize_params) = connection.initialize_start()
+
+> crates/rust-analyzer/src/handlers.rs, pub fn lens
+
+> crates/ide_db/src/search.rs
 
 ## Reference
 
