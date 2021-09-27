@@ -3,6 +3,9 @@ name = "rust_analyzer_api"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+doctest = false
+
 [dependencies]
 rust-analyzer = { path = "../rust-analyzer/crates/rust-analyzer" }
 project_model = { path = "../rust-analyzer/crates/project_model" }
