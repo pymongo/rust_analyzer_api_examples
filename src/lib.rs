@@ -1,7 +1,10 @@
 #![doc = include_str!("../README.md")]
 #![feature(rustc_private)]
+extern crate rustc_graphviz;
 extern crate rustc_lexer;
 
+#[cfg(test)]
+mod graphviz_render_crate_graph;
 #[cfg(test)]
 mod misc_code_snippets;
 
@@ -103,14 +106,13 @@ fn test_() -> anyhow::Result<()> {
     dbg!(start.elapsed());
 
     // find the excepted crate to analyze unused pub in workspace
-    
- 
+
     for crate_ in hir::Crate::all(db) {
         let file = crate_.root_file(db);
         dbg!(file);
         let crate_name = crate_.display_name(db).unwrap();
         let crate_name: &str = std::ops::Deref::deref(&crate_name);
-        
+
         dbg!(crate_name);
     }
 
@@ -166,13 +168,13 @@ fn test_() -> anyhow::Result<()> {
                     let offset = token.text_range().start();
                     // find_all_refs 可能无法分析过程宏生成的代码，除非启用 ra 的 proc_macro_server ?
                     println!("scanning pub fn `{}`, find_all_refs...", fn_name);
-                    // find_all_refs 的 search_scope 如果是 None 只会搜索 函数所在库?
+                    // find_all_refs 的 search_scope 如果不是 None 就会将默认的搜索结果跟 search_scope 入参 intersect 一下
                     //analysis.call_hierarchy(position)
                     // analysis.resolve_annotation(annotation)
                     let find_usage = analysis
                         .find_all_refs(base_db::FilePosition { file_id, offset }, None)
                         .unwrap();
-                    
+
                     // #[tokio::main] may has None references?
                     if let Some(usage) = find_usage {
                         if usage.is_empty() {
@@ -190,3 +192,5 @@ fn test_() -> anyhow::Result<()> {
     dbg!(start.elapsed());
     Ok(())
 }
+
+// 为啥 find_all_refs 的返回值跟 vscode 里面操作不一样?
