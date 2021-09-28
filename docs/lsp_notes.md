@@ -50,4 +50,14 @@ vscode 的 output 界面中:
 
 我用的是 eprintln! 和 dbg! 这两个输出到 STDERR 的宏记录请求
 
+## LSP 的消息类型
+
+分为 Request/Response/Notification 三种，三者的 JSON 格式都不一样
+
+注意 Request 并不是只有 client 向 server 发，server 也会给 client 发 request 获取客户端信息
+
+client 发的 notification 例如修改了哪个文件的第几行
+
+server 发的 notification 例如 Indexing 12/100 当前扫描文件的进度
+
 
