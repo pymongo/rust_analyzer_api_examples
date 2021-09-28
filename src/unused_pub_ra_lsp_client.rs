@@ -1,11 +1,11 @@
-//! LSP 的原理是 通过 stdin/stdout(管道) 跟 rust-analyzer executable 文件进行通信
+//! LSP 的原理是 通过 stdin/stdout(管道 uri: todo!(), name: todo!()  uri: todo!(), name: todo!() ) 跟 rust-analyzer executable 文件进行通信
 //! 当然 LSP 用 socket 通信也行，只不过 LSP 用 pipe 通信在客户端和服务端都在单机上性能会好于 socket
 //! 改下 ra 源码 Log 每一个 request 和 response 的 json 方便学习
 
 use serde_json::json;
 use std::io::{BufRead, Write};
 
-#[link(name = "C")]
+#[link(name = "c")]
 extern "C" {
     fn getpid() -> i32;
 }
@@ -37,21 +37,27 @@ fn ra_lsp_client() {
         ack_seq_id: 1,
         ra_req_sender: ra_child_process.stdin.take().unwrap(),
     };
+    let path = "/home/w/temp/unused_pub_test_case";
+    let project_root = lsp_types::Url::parse(&format!("file://{}", path)).unwrap();
+    #[allow(deprecated)]
     let init_params = lsp_types::InitializeParams {
         process_id: Some(pid as u32),
-        root_path: Some("/home/w/temp/unused_pub_test_case"),
-        root_uri: Some("file:///home/w/temp/unused_pub_test_case"),
+        root_path: None,
+        root_uri: Some(project_root),
         initialization_options: todo!(),
         capabilities: todo!(),
-        trace: Some("off"),
-        workspace_folders: todo!(),
+        trace: Some(lsp_types::TraceOption::Off),
+        workspace_folders: Some(vec![lsp_types::WorkspaceFolder {
+            uri: project_root,
+            name: "unused_pub_test_case".to_string(),
+        }]),
         client_info: Some(lsp_types::ClientInfo {
-            name: "rust_analyzer_api_examples",
-            version: "0.1.0",
+            name: "rust_analyzer_api_examples".to_string(),
+            version: Some("0.1.0".to_string()),
         }),
-        locale: Some("en-us"),
+        locale: Some("en-us".to_string()),
     };
-    req_helper.send_req("initialize", json!({}));
+    req_helper.send_req("initialize", serde_json::to_value(init_params).unwrap());
 
     let _exit_code = ra_child_process.wait().unwrap();
     // assert!(exit_code.success());

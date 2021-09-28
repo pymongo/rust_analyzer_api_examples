@@ -71,7 +71,7 @@ fn run() {
                     let fn_in_file = hir::HasSource::source(func, db).unwrap();
                     let file_id = fn_in_file.file_id.original_file(db);
                     let fn_ = fn_in_file.value;
-                    let fn_name = syntax::ast::NameOwner::name(&fn_).unwrap();
+                    let fn_name = syntax::ast::HasName::name(&fn_).unwrap();
 
                     let token = fn_.fn_token().unwrap();
                     let def = ide_db::defs::Definition::from_token(&sem, &token);
