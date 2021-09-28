@@ -1,0 +1,26 @@
+{
+    "id": 0,
+    "method": "client/registerCapability",
+    "params": {
+        "registrations": [
+            {
+                "id": "textDocument/didSave",
+                "method": "textDocument/didSave",
+                "registerOptions": {
+                    "includeText": false,
+                    "documentSelector": [
+                        {
+                            "pattern": "**/*.rs"
+                        },
+                        {
+                            "pattern": "**/Cargo.toml"
+                        },
+                        {
+                            "pattern": "**/Cargo.lock"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -12,19 +12,17 @@ project_model = { path = "../rust-analyzer/crates/project_model" }
 paths = { path = "../rust-analyzer/crates/paths" }
 syntax =  { path = "../rust-analyzer/crates/syntax" } # AST
 base_db = { path = "../rust-analyzer/crates/base_db" }
-
 hir =  { path = "../rust-analyzer/crates/hir" }
 hir_expand =  { path = "../rust-analyzer/crates/hir_expand" }
-
-# unuse
 ide = { path = "../rust-analyzer/crates/ide"  }
 ide_db = { path = "../rust-analyzer/crates/ide_db" }
 vfs = { path = "../rust-analyzer/crates/vfs" }
 
+serde_json = "*"
+lsp-types = "*"
+
 tracing = "*"
 tracing-subscriber = "*"
-anyhow = "*"
-
 log = "*" # use in tracing_instrument only
 # env_logger = "*" # use in tracing_instrument only
 

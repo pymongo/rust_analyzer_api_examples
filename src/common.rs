@@ -15,6 +15,29 @@ fn init_logger() {
     tracing_subscriber::fmt().with_env_filter(filter).init();
 }
 
+pub(crate) fn load_cargo_toml_to_workspace(manifest_path: &str) -> project_model::ProjectWorkspace {
+    init_logger();
+    let manifest_path: paths::AbsPathBuf = manifest_path.try_into().unwrap();
+    let manifest = project_model::ProjectManifest::from_manifest_file(manifest_path).unwrap();
+    let workspace = project_model::ProjectWorkspace::load(
+        manifest,
+        &project_model::CargoConfig::default(),
+        &|_| {},
+    )
+    .unwrap();
+
+    // traverse all cargo_package(members) in cargo_workspace
+    for package in workspace.to_roots() {
+        // skip std package `/home/w/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library`
+        if !package.is_local {
+            continue;
+        }
+        let package_path: &std::path::Path = package.include[0].as_ref();
+        println!("found package {}", package_path.to_str().unwrap());
+    }
+    workspace
+}
+
 /**
 ## get CrateGraph Example 1: ProjectWorkspace -> CrateGraph
 ```no_run
@@ -33,26 +56,7 @@ let crate_graph = base_db::SourceDatabase::crate_graph(db);
 ```
 */
 pub(crate) fn ra_load_manifest_path(path: &str) -> ide::AnalysisHost {
-    init_logger();
-    // let path = "/home/w/temp/unused_pub_test_case/Cargo.toml";
-    let manifest_path: paths::AbsPathBuf = path.try_into().unwrap();
-    let manifest = project_model::ProjectManifest::from_manifest_file(manifest_path).unwrap();
-    let workspace = project_model::ProjectWorkspace::load(
-        manifest,
-        &project_model::CargoConfig::default(),
-        &|_| {},
-    )
-    .unwrap();
-
-    // traverse all cargo_package(members) in cargo_workspace
-    for package in workspace.to_roots() {
-        // skip std package `/home/w/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library`
-        if !package.is_local {
-            continue;
-        }
-        let package_path: &std::path::Path = package.include[0].as_ref();
-        println!("found package {}", package_path.to_str().unwrap());
-    }
+    let workspace = load_cargo_toml_to_workspace(path);
     let (analysis_host, _vfs, _proc_macro_srv_opt) =
         rust_analyzer::cli::load_cargo::load_workspace(
             workspace,
