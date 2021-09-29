@@ -2,13 +2,13 @@ use super::common::ra_load_manifest_path;
 
 #[test]
 fn run() {
-    // let path = "/home/w/temp/unused_pub_test_case/Cargo.toml";
-    // let path = "/home/w/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/rustc-src/rust/compiler/rustc_driver/Cargo.toml";
-    let path = "/home/w/repos/clone_repos/rust-clippy/Cargo.toml";
-    let host = ra_load_manifest_path(path);
+    // let manifest_path = "/home/w/temp/unused_pub_test_case/Cargo.toml";
+    // let manifest_path = "/home/w/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/rustc-src/rust/compiler/rustc_driver/Cargo.toml";
+    let manifest_path = "/home/w/repos/clone_repos/rust-clippy/Cargo.toml";
+    let host = ra_load_manifest_path(manifest_path);
     let analysis = host.analysis();
 
-    let is_include_std_and_dependencies_crate = true;
+    let is_include_std_and_dependencies_crate = false;
     let dot = analysis
         .view_crate_graph(is_include_std_and_dependencies_crate)
         .unwrap()

@@ -7,7 +7,7 @@ use super::common::ra_load_manifest_path;
 
 #[test]
 fn list_crates_by_db() {
-    let manifest_path = "/home/w/repos/atlas/atlas/Cargo.toml";
+    let manifest_path = "/home/w/repos/clone_repos/rust-analyzer/Cargo.toml";
     let host = ra_load_manifest_path(manifest_path);
     let db = host.raw_database();
     let crate_graph = base_db::SourceDatabase::crate_graph(db);

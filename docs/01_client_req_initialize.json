@@ -421,7 +421,6 @@
         "initializationOptions": {
             "cargoRunner": null,
             "runnableEnv": {
-                "WORKSPACE": "/home/w/repos/atlas/atlas",
                 "CRATE": "common"
             },
             "inlayHints": {
