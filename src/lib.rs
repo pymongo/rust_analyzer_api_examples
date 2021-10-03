@@ -17,3 +17,7 @@ mod unused_pub_analysis_annotations;
 mod unused_pub_find_all_refs;
 #[cfg(test)]
 mod unused_pub_ra_lsp_client;
+
+#[allow(dead_code)]
+#[cfg(test)]
+fn foo() {}
