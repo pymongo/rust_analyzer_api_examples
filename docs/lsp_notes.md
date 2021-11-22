@@ -48,7 +48,13 @@ vscode 的 output 界面中:
 
 所以在 RA 源码中加上 println!() 不会有任何效果!
 
+### STDERR in LSP
+
 我用的是 eprintln! 和 dbg! 这两个输出到 STDERR 的宏记录请求
+
+另外补充知识说明下，Rust 的 STDOUT 有内置 buffer 所以 print! 不 flush 的话可能要等够 4096 个字节再打印一次
+
+如果是 eprintln! dbg! 这种好像 Rust 的 STDERR 类都没 buffer 直接打出去
 
 ## LSP 的消息类型
 
